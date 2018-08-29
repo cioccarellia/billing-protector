@@ -36,24 +36,25 @@ class BillingProtector(private val context: Context) {
 
     val isRootInstalled = RootUtils.hasRootAccess
 
-    fun getPirateAppsList(): List<PirateApp> {
-        val foundThreats = mutableListOf<PirateApp>()
-        val appList = context.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
+    val pirateAppsList: List<PirateApp>
+        get() {
+            val foundThreats = mutableListOf<PirateApp>()
+            val appList = context.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
 
-        for (app in appList) {
-            pirateApps.map {
-                when (it.criteria) {
-                    SelectionCriteria.SLICE -> {
-                        if (it.packageName.contains(app.packageName)) foundThreats.add(it)
-                    }
+            for (app in appList) {
+                pirateApps.map {
+                    when (it.criteria) {
+                        SelectionCriteria.SLICE -> {
+                            if (it.packageName.contains(app.packageName)) foundThreats.add(it)
+                        }
 
-                    SelectionCriteria.MATCH -> {
-                        if (it.packageName == app.packageName) foundThreats.add(it)
+                        SelectionCriteria.MATCH -> {
+                            if (it.packageName == app.packageName) foundThreats.add(it)
+                        }
                     }
                 }
             }
+            return foundThreats
         }
-        return foundThreats
-    }
 
 }
