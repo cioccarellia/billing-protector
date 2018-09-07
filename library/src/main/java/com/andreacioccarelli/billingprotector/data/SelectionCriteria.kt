@@ -5,6 +5,4 @@ package com.andreacioccarelli.billingprotector.data
  * Part of the package com.andreacioccarelli.billingprotector.data
  */
 
-enum class SelectionCriteria {
-    MATCH, SLICE
-}
+enum class SelectionCriteria { MATCH, SLICE }

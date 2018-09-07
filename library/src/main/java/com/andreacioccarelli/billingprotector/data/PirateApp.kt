@@ -19,7 +19,7 @@ data class PirateApp(val packageName: String, val encodedPackageName: String, va
     }
 }
 
-val pirateApps by lazy { listOf(
+fun createPirateAppsList() = listOf(
         PirateApp("com.chelpus.lackypatch", "Y29tLmNoZWxwdXMubGFja3lwYXRjaA==", SelectionCriteria.MATCH, "Chelpus Lucky Patcher"),
         PirateApp("com.dimonvideo.luckypatcher", "Y29tLmRpbW9udmlkZW8ubHVja3lwYXRjaGVy", SelectionCriteria.MATCH, "Lucky Patcher"),
         PirateApp("com.forpda.lp", "Y29tLmZvcnBkYS5scA==", SelectionCriteria.MATCH, "4Pda Lucy Patcher"),
@@ -32,4 +32,4 @@ val pirateApps by lazy { listOf(
         PirateApp("apps.zhasik007.hack", "YXBwcy56aGFzaWswMDcuaGFjaw==", SelectionCriteria.MATCH, "CreeHack"),
         PirateApp("com.leo.playcard", "Y29tLmxlby5wbGF5Y2FyZA==", SelectionCriteria.MATCH, "Leo Playcard"),
         PirateApp("com.appsara.app", "Y29tLmFwcHNhcmEuYXBw", SelectionCriteria.MATCH, "AppSara")
-) }
+)

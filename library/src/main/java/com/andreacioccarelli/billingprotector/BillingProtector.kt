@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import com.andreacioccarelli.billingprotector.data.PirateApp
 import com.andreacioccarelli.billingprotector.data.SelectionCriteria
-import com.andreacioccarelli.billingprotector.data.pirateApps
+import com.andreacioccarelli.billingprotector.data.createPirateAppsList
 import com.andreacioccarelli.billingprotector.utils.RootUtils
 
 
@@ -13,6 +13,10 @@ import com.andreacioccarelli.billingprotector.utils.RootUtils
  * Part of the package com.andreacioccarelli.billingprotector
  */
 class BillingProtector(private val context: Context) {
+
+    private val pirateApps: List<PirateApp> = createPirateAppsList()
+
+    val isRootInstalled = RootUtils.hasRootAccess
 
     val arePirateAppsInstalled: Boolean
         get() {
@@ -34,8 +38,6 @@ class BillingProtector(private val context: Context) {
             return false
         }
 
-    val isRootInstalled = RootUtils.hasRootAccess
-
     val pirateAppsList: List<PirateApp>
         get() {
             val foundThreats = mutableListOf<PirateApp>()
@@ -56,5 +58,4 @@ class BillingProtector(private val context: Context) {
             }
             return foundThreats
         }
-
 }

@@ -8,8 +8,7 @@ import java.io.InputStreamReader
  * Part of the package com.andreacioccarelli.billingprotector.utils
  */
 object RootUtils {
-
-    private val path: String
+    val path: String
         get() {
             return try {
                 val process = Runtime.getRuntime().exec("which su")
@@ -18,6 +17,7 @@ object RootUtils {
                 val buffer = BufferedReader(InputStreamReader(process.inputStream))
 
                 var l: String?
+
                 do {
                     l = buffer.readLine()
 
