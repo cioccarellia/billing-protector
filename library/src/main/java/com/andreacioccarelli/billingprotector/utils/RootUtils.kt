@@ -33,14 +33,13 @@ object RootUtils {
             }
         }
 
-    val hasRootAccess: Boolean
-        get() {
-            val path = path
-            if (path.length == 0) return false
-            if (path == "") return false
-            if (!path.contains("/")) return false
-            if (!path.contains("su")) return false
+    fun hasRootAccess(): Boolean {
+        val path = path
+        if (path.isEmpty()) return false
+        if (path == "") return false
+        if (!path.contains("/")) return false
+        if (!path.contains("su")) return false
 
-            return true
-        }
+        return true
+    }
 }

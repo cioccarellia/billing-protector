@@ -16,7 +16,7 @@ class BillingProtector(private val context: Context) {
 
     private val pirateApps: List<PirateApp> = createPirateAppsList()
 
-    val isRootInstalled = RootUtils.hasRootAccess
+    val isRootInstalled = RootUtils.hasRootAccess()
 
     val arePirateAppsInstalled: Boolean
         get() {

@@ -3,7 +3,6 @@ package com.andreacioccarelli.billingprotectorsample
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
@@ -23,11 +22,11 @@ class MainActivity : AppCompatActivity() {
         title = "Kotlin activity"
         val bp = BillingProtector(baseContext)
 
-        val yvr = bp.isRootInstalled
-        val yyz = bp.arePirateAppsInstalled
-        val mex = bp.pirateAppsList
+        val isRootDetected = bp.isRootInstalled
+        val arePirateAppsInstalled = bp.arePirateAppsInstalled
+        val pirateList = bp.pirateAppsList
 
-        mxp.text = "isRootInstalled: $yvr\narePirateAppsInstalled: $yyz\npirateAppsList: ${mex.map { it.packageName }}"
+        mxp.text = "isRootInstalled: $isRootDetected\narePirateAppsInstalled: $arePirateAppsInstalled\npirateAppsList: ${pirateList.map { it.packageName }}"
 
         fab.setOnClickListener {
             startActivity(Intent(this, SecondaryActivity::class.java))
