@@ -6,12 +6,12 @@
 [![Min sdk](https://img.shields.io/badge/minsdk-14-yellow.svg)](https://github.com/AndreaCioccarelli/LogKit/blob/master/library/build.gradle)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/AndreaCioccarelli/BillingProtector/blob/master/LICENSE)
 
-BillingProtector is a Kotlin robust and tiny library aiming to check the host device state & purchases security. 
-Its main purpose is to block a transition if the application has been modified or patched, if the device environment is corrupted or if other suspicious condition is detected; it can also be used to prevent applications from being executed on an unprotected/insecure operative system.
+BillingProtector is a robust and tiny Kotlin library, aiming to check the end-user device state & to secure purchases. 
+Its main purpose is to block a transition process if the application has been modified or patched, if the device environment is corrupted or if other suspicious condition is detected; it can also be used to prevent applications from being executed on an unprotected/insecure operative system, like Snapchat does for rooted devices.
 
 ## Backgrounding
-Hacking android applications is way easier than how it is thought to be. Softwares like [Lucky Patcher](https://www.luckypatchers.com) are phenomenally written to bypass all your first-line defenses and edit your app executable code, redirecting your purchases to the pirate app and not to the Google Play Store.
-That's a violation of the Developer's product and of the Developer's business, since it won't just make you lose money but also users and credibility.
+Hacking android applications is way easier than how it is thought to be. Softwares like [Lucky Patcher](https://www.luckypatchers.com) are phenomenally written to bypass all your first-line defenses and to edit your app executable code, redirecting your purchases to the pirate app and not to the Google Play Store.
+That's a violation of the Developer's product and business, since it won't just make you lose money but also users and credibility.
 I've been implmenting by myself on every app of mine a complex and different security scheme each time. Then I decided to put everything together and to realize this project of crucial importance for someone's business, in parallel with [CryptoPrefs](https://github.com/AndreaCioccarelli/CryptoPrefs).
 Remember that a skilled hacker will always find a way to crack your code. This library is a barrier that will stop the 99% of the other kiddies.
 
