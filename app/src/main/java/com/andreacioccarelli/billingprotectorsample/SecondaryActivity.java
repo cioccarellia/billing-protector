@@ -27,7 +27,7 @@ public class SecondaryActivity extends Activity {
         TextView mxp = findViewById(R.id.mxp);
         mxp.setText(
                 "isRootInstalled: " + String.valueOf(bp.isRootInstalled()) +
-                        "\narePirateAppsInstalled: " + bp.getArePirateAppsInstalled() +
+                        "\narePirateAppsInstalled: " + bp.getPirateAppsList() +
                         "\npirateAppsList: " + bp.getPirateAppsList()
         );
 

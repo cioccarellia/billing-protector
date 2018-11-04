@@ -5,21 +5,20 @@ import android.util.Log
 
 
 /**
- * Created by andrea on 2018/Jul.
- * Part of the package com.andreacioccarelli.billingprotector.data
+ * Class representing a pirate app with built-in string sign check
  */
 data class PirateApp(val packageName: String, val encodedPackageName: String, val criteria: SelectionCriteria, val name: String) {
     init {
         val check = Base64.encodeToString(packageName.toByteArray(), Base64.DEFAULT)
 
         if (check.trim() != encodedPackageName.trim()) {
-            Log.d("Security error", "pn=$packageName, Check=[$check], encodedPN=[$encodedPackageName]")
-            throw SecurityException("Package names mismatch")
+            Log.e("BillingProtector", "Package Name=[$packageName], Sign Check String=[$check], Base64 Encoded Package Name=[$encodedPackageName]")
+            throw SecurityException("Package names mismatch, apk file damaged or corrupted")
         }
     }
 }
 
-fun createPirateAppsList() = listOf(
+internal fun createPirateAppsList() = listOf(
         PirateApp("com.chelpus.lackypatch", "Y29tLmNoZWxwdXMubGFja3lwYXRjaA==", SelectionCriteria.MATCH, "Chelpus Lucky Patcher"),
         PirateApp("com.dimonvideo.luckypatcher", "Y29tLmRpbW9udmlkZW8ubHVja3lwYXRjaGVy", SelectionCriteria.MATCH, "Lucky Patcher"),
         PirateApp("com.forpda.lp", "Y29tLmZvcnBkYS5scA==", SelectionCriteria.MATCH, "4Pda Lucy Patcher"),

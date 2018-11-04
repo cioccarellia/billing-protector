@@ -22,9 +22,9 @@ class MainActivity : AppCompatActivity() {
         title = "Kotlin activity"
         val bp = BillingProtector(baseContext)
 
-        val isRootDetected = bp.isRootInstalled
-        val arePirateAppsInstalled = bp.arePirateAppsInstalled
-        val pirateList = bp.pirateAppsList
+        val isRootDetected = bp.isRootInstalled()
+        val arePirateAppsInstalled = bp.getPirateAppsList()
+        val pirateList = bp.getPirateAppsList()
 
         mxp.text = "isRootInstalled: $isRootDetected\narePirateAppsInstalled: $arePirateAppsInstalled\npirateAppsList: ${pirateList.map { it.packageName }}"
 

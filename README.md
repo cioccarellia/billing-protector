@@ -1,5 +1,5 @@
 # BillingProtector
-BillingProtector is and android robust and small library whose aim is to check the device state & the purchases security. 
+BillingProtector is and android robust and small library aiming to check the device state & purchases security. 
 Its main purpose is to block a transition if the application has been modified or patched; it can also be used to prevent applications from being executed on an unprotected/insecure envoronment.
 
 # Setup
@@ -20,7 +20,8 @@ dependencies {
 ```
 
 # Usage
-BillingProtector has some core functionalities. Let's see them in a list
+BillingProtector has different functionalities and can be used for different purposes.
+
 
 ## Initialization
 Create an instance of the BillingProtector class passing as argument the context of your current activity/fragment

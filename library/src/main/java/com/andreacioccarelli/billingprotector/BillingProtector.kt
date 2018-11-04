@@ -14,48 +14,58 @@ import com.andreacioccarelli.billingprotector.utils.RootUtils
  */
 class BillingProtector(private val context: Context) {
 
-    private val pirateApps: List<PirateApp> = createPirateAppsList()
+    /**
+     * Returns a boolean that represents the device root state.
+     * */
+    fun isRootInstalled() = RootUtils.hasRootAccess()
 
-    val isRootInstalled = RootUtils.hasRootAccess()
+    /**
+     * Returns a String, representing the root binary path, if present.
+     * */
+    fun getRootBinatyPath() = RootUtils.extractPath()
 
-    val arePirateAppsInstalled: Boolean
-        get() {
-            val appList = context.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
+    /**
+     * Returns a boolean that indicates the presence of pirate apps in the host system
+     * */
+    fun arePirateAppsInstalled(): Boolean {
+        val appList = context.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
 
-            for (app in appList) {
-                pirateApps.map {
-                    when (it.criteria) {
-                        SelectionCriteria.SLICE -> {
-                            if (it.packageName.contains(app.packageName)) return true
-                        }
+        for (app in appList) {
+            createPirateAppsList().map {
+                when (it.criteria) {
+                    SelectionCriteria.SLICE -> {
+                        if (it.packageName.contains(app.packageName)) return true
+                    }
 
-                        SelectionCriteria.MATCH -> {
-                            if (it.packageName == app.packageName) return true
-                        }
+                    SelectionCriteria.MATCH -> {
+                        if (it.packageName == app.packageName) return true
                     }
                 }
             }
-            return false
         }
+        return false
+    }
 
-    val pirateAppsList: List<PirateApp>
-        get() {
-            val foundThreats = mutableListOf<PirateApp>()
-            val appList = context.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
+    /**
+     * Returns a list of the installed apps detected as pirate software
+     * */
+    fun getPirateAppsList(): List<PirateApp> {
+        val foundThreats = mutableListOf<PirateApp>()
+        val appList = context.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
 
-            for (app in appList) {
-                pirateApps.map {
-                    when (it.criteria) {
-                        SelectionCriteria.SLICE -> {
-                            if (it.packageName.contains(app.packageName)) foundThreats.add(it)
-                        }
+        for (app in appList) {
+            createPirateAppsList().map {
+                when (it.criteria) {
+                    SelectionCriteria.SLICE -> {
+                        if (it.packageName.contains(app.packageName)) foundThreats.add(it)
+                    }
 
-                        SelectionCriteria.MATCH -> {
-                            if (it.packageName == app.packageName) foundThreats.add(it)
-                        }
+                    SelectionCriteria.MATCH -> {
+                        if (it.packageName == app.packageName) foundThreats.add(it)
                     }
                 }
             }
-            return foundThreats
         }
+        return foundThreats.toList()
+    }
 }
