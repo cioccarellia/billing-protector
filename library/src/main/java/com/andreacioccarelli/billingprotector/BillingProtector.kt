@@ -22,23 +22,24 @@ class BillingProtector(private val context: Context) {
     /**
      * Returns a String, representing the root binary path, if present.
      * */
-    fun getRootBinatyPath() = RootUtils.extractPath()
+    fun getRootBinaryPath() = RootUtils.extractPath()
 
     /**
      * Returns a boolean that indicates the presence of pirate apps in the host system
      * */
     fun arePirateAppsInstalled(): Boolean {
-        val appList = context.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
+        val installedApps = context.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
+        val pirateApps = createPirateAppsList()
 
-        for (app in appList) {
-            createPirateAppsList().map {
+        installedApps.forEach { installedApp ->
+            pirateApps.forEach {
                 when (it.criteria) {
                     SelectionCriteria.SLICE -> {
-                        if (it.packageName.contains(app.packageName)) return true
+                        if (installedApp.packageName.contains(it.packageName)) return true
                     }
 
                     SelectionCriteria.MATCH -> {
-                        if (it.packageName == app.packageName) return true
+                        if (it.packageName == installedApp.packageName) return true
                     }
                 }
             }
@@ -51,17 +52,18 @@ class BillingProtector(private val context: Context) {
      * */
     fun getPirateAppsList(): List<PirateApp> {
         val foundThreats = mutableListOf<PirateApp>()
-        val appList = context.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
+        val installedApps = context.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
+        val pirateApps = createPirateAppsList()
 
-        for (app in appList) {
-            createPirateAppsList().map {
+        installedApps.forEach { installedApp ->
+            pirateApps.forEach {
                 when (it.criteria) {
                     SelectionCriteria.SLICE -> {
-                        if (it.packageName.contains(app.packageName)) foundThreats.add(it)
+                        if (installedApp.packageName.contains(it.packageName)) foundThreats.add(it)
                     }
 
                     SelectionCriteria.MATCH -> {
-                        if (it.packageName == app.packageName) foundThreats.add(it)
+                        if (it.packageName == installedApp.packageName) foundThreats.add(it)
                     }
                 }
             }
