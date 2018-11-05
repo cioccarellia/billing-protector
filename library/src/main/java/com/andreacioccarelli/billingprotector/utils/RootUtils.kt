@@ -10,6 +10,8 @@ import java.io.InputStreamReader
  */
 internal object RootUtils {
 
+    private const val INSPECTION_COMMAND = "which su"
+
     /**
      * Requests the root binary path by using unix which command, that
      * returns the path of a specified executable, in this case, su
@@ -23,10 +25,8 @@ internal object RootUtils {
      *          nothing is found in the host system
      * */
     internal fun extractPath(): String {
-        val inspectionCommand = "which su"
-
         return try {
-            val process = Runtime.getRuntime().exec(inspectionCommand)
+            val process = Runtime.getRuntime().exec(INSPECTION_COMMAND)
 
             val outputBuffer = StringBuffer()
             val bufferedReader = BufferedReader(InputStreamReader(process.inputStream))

@@ -23,10 +23,10 @@ class MainActivity : AppCompatActivity() {
         val bp = BillingProtector(baseContext)
 
         val isRootDetected = bp.isRootInstalled()
-        val arePirateAppsInstalled = bp.getPirateAppsList()
+        val arePirateAppsInstalled = bp.arePirateAppsInstalled()
         val pirateList = bp.getPirateAppsList()
 
-        mxp.text = "isRootInstalled: $isRootDetected\narePirateAppsInstalled: $arePirateAppsInstalled\npirateAppsList: ${pirateList.map { it.packageName }}"
+        mxp.text = "isRootInstalled: $isRootDetected\narePirateAppsInstalled: $arePirateAppsInstalled\n\npirateAppsList: ${pirateList.map { it.packageName }}"
 
         fab.setOnClickListener {
             startActivity(Intent(this, SecondaryActivity::class.java))

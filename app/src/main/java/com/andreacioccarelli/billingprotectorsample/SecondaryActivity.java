@@ -27,16 +27,15 @@ public class SecondaryActivity extends Activity {
         TextView mxp = findViewById(R.id.mxp);
         mxp.setText(
                 "isRootInstalled: " + String.valueOf(bp.isRootInstalled()) +
-                        "\narePirateAppsInstalled: " + bp.getPirateAppsList() +
-                        "\npirateAppsList: " + bp.getPirateAppsList()
+                        "\narePirateAppsInstalled: " + bp.arePirateAppsInstalled() +
+                        "\n\npirateAppsList: " + bp.getPirateAppsList()
         );
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent X = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(X);
+                finish();
             }
         });
     }
