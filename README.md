@@ -6,7 +6,7 @@
 [![Min sdk](https://img.shields.io/badge/minsdk-14-yellow.svg)](https://github.com/AndreaCioccarelli/LogKit/blob/master/library/build.gradle)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/AndreaCioccarelli/BillingProtector/blob/master/LICENSE)
 
-BillingProtector is a robust and tiny Kotlin library, aiming to check the end-user device state & to secure purchases. 
+BillingProtector is a robust and tiny library for Android, entirely written in Kotlin. Its main purpose is to check the end-user device state & to secure purchases. 
 Its main purpose is to block a transition process if the application has been modified or patched, if the device environment is corrupted or if other suspicious condition is detected; it can also be used to prevent applications from being executed on an unprotected/insecure operative system, like Snapchat does for rooted devices.
 
 ## Backgrounding
@@ -51,6 +51,13 @@ if (bp.isRootInstalled()) {
     finish();
 }
 ```
+
+The method `isRootInstalled()` is going to execute a built-in unix program to determine if the binary `su`, the root permission controller, is present on the system and it will analyze the path of that binary. From this evaluation the result is returned under boolean type.
+This method is safe at 100% for 3 reasons. 
+- **It's not thread-blocking**, because it executes as less shell commands as possible 
+- **It doesn't require root permissions**. Most of the root-checking software analyzes root access presence by actually executing `su` and analyzing the command stdout and stderr. This is slow, unefficient, thread-blocking, it requires your app to ask for root permissions and, in some cases of incompatibility / broken installation, it will freeze your app causing an ANR.
+- **The result is reliable**. Many root managers I've had the opportunity to study while building [Impactor](https://play.google.com/store/apps/details?id=com.andreacioccarelli.impactor) places the root binary in hidden directories, under different partitions and among other equally-named programs. This is messy and it can lead to wrong results, basing on the installation type, on the root manager internal mechanism, on the root installation type, and so on and so forth. This tiny trick is efficient and reliable, since it will always just pick the system-linked `su` command
+
 
 ## Check if pirate apps are installed
 ```kotlin
