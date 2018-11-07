@@ -69,14 +69,15 @@ if (bp.arePirateAppsInstalled()) {
 }
 ```
 The method `arePirateAppsInstalled()` is a simple `for` cycle that iterates through every installed software to search if one of them matches with the packages bundled in the library.
-´
-The method `arePirateAppsInstalled()` is a simple `for` cycle that iterates through every installed software to search if one of them matches with the packages bundled in the library.
-`getPirateAppsList()` instread returns a list of `PirateApp`s, that you can easily show to the user, or open in the default Sytsem Settings App Viewer with the given package name, and asking him to uninstall.
+The method `getPirateAppsList()` instread returns a list of `PirateApp`s, that you can easily show to the user, or open in the default Sytsem Settings App Viewer with the given package name, and asking him to uninstall.
 
 **Warning:**
-- Never store the value of `arePirateAppsInstalled()` in a variable. Always calculate it at runtime, because your app can be easily cracked with lucky patcher otherwise (Also if no user will probably have way know it, he'd have to open e.g. Lucky Patcher, patch your app, launch it, uninstall Lucky Patcher, wait you to get on the purchase page and then install it again to compleate the process)
+- Never store the value of `arePirateAppsInstalled()` in a variable. Always calculate it at runtime, because your app can be easily cracked with lucky patcher otherwise (Also if no user will probably have way know it, he'd have to open e.g. Lucky Patcher, patch your app, launch it, uninstall Lucky Patcher, wait you to get on the purchase page and then install it again to compleate the process).
 
 ### Get root binary path
 ```kotlin
 toast(bp.getRootBinatyPath())
 ```
+
+This method returns the path of the `su` binary, if present. If not, an empty string is returned.
+To operate with this file you need root permission since it will be placed on a protected device zone.
