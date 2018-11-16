@@ -16,8 +16,8 @@ I've been implmenting by myself on every app of mine a complex and different sec
 Remember that a skilled hacker will always find a way to crack your code. This library is a harsh barrier that will stop the 99% of the other kiddies.
 
 # Setup
-BillingProtector uses jitpack as packages repository.
-To use it you need to add the repository to your project build.gradle file:
+BillingProtector uses [jitpack](https://jitpack.io/#AndreaCioccarelli/BillingProtector) as package repository.
+To use it you need to add that line to your project build.gradle file:
 ```gradle
 allprojects {
     repositories {
