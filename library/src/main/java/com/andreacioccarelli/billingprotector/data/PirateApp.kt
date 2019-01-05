@@ -6,11 +6,11 @@ import android.util.Base64 import android.util.Log
  * Class representing a pirate app with built-in string sign check
  * */
 
-data class PirateApp(val packageName: String, val encodedPackageName: String, val criteria: SelectionCriteria, val name: String) {
+data class PirateApp(val field: String, val encodedField: String, val criteria: SelectionCriteria, val name: String) {
     init {
-        val check = Base64.encodeToString(packageName.toByteArray(), Base64.DEFAULT)
-        if (check.trim() != encodedPackageName.trim()) {
-            Log.e("BillingProtector", "Package Name=[$packageName], Sign Check String=[$check], Base64 Encoded Package Name=[$encodedPackageName]")
+        val check = Base64.encodeToString(field.toByteArray(), Base64.DEFAULT)
+        if (check.trim() != encodedField.trim()) {
+            Log.e("BillingProtector", "Field=[$field], Check=[$check], Encoded Field=[$encodedField]")
             throw SecurityException("Package names mismatch, apk file damaged or corrupted")
         }
     }
@@ -21,6 +21,9 @@ internal fun createPirateAppsList() = listOf(
         PirateApp("com.dimonvideo.luckypatcher", "Y29tLmRpbW9udmlkZW8ubHVja3lwYXRjaGVy", SelectionCriteria.MATCH, "Lucky Patcher"),
         PirateApp("com.forpda.lp", "Y29tLmZvcnBkYS5scA==", SelectionCriteria.MATCH, "4Pda Lucy Patcher"),
         PirateApp("com.android.vending.billing.InAppBillingService.", "Y29tLmFuZHJvaWQudmVuZGluZy5iaWxsaW5nLkluQXBwQmlsbGluZ1NlcnZpY2Uu", SelectionCriteria.SLICE, "Lucky Patcher"),
+        PirateApp("ru.aaaaaaac.installer", "cnUuYWFhYWFhYWMuaW5zdGFsbGVy", SelectionCriteria.MATCH, "Lucky Patcher Installer"),
+        PirateApp("com.lp.LuckyApp", "Y29tLmxwLkx1Y2t5QXBw", SelectionCriteria.CLASS_NAME, "Lucky Patcher 8"),
+        PirateApp("Lucky Patcher", "THVja3kgUGF0Y2hlcg==", SelectionCriteria.LABEL, "Lucky Patcher"),
         PirateApp("jase.freedom", "amFzZS5mcmVlZG9t", SelectionCriteria.SLICE, "Freedom"),
         PirateApp("madkite.freedom", "bWFka2l0ZS5mcmVlZG9t", SelectionCriteria.SLICE, "Freedom"),
         PirateApp("uret.jasi2169.patcher", "dXJldC5qYXNpMjE2OS5wYXRjaGVy", SelectionCriteria.MATCH, "Uret Patcher"),

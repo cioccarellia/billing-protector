@@ -15,6 +15,10 @@ That's a violation of the Developer's product and business, since it won't just 
 I've been implmenting by myself on every app of mine a complex and different security scheme each time. Then I decided to put everything together and to realize this project of crucial importance for someone's business, in parallel with [CryptoPrefs](https://github.com/AndreaCioccarelli/CryptoPrefs).
 Remember that a skilled hacker will always find a way to crack your code. This library is a harsh barrier that will stop the 99% of the other kiddies.
 
+### Bulletin
+At the end of December 2018, Lucky Patcher 8.0.0 was released, along with the possibility to randomize package name and make the app invisible from google play store and other defense systems.
+The 5th of January, BillingProtector 1.1.0 update introduces support for custom package parameter matching and comes along with the ability of detecting every lucky patcher installation
+
 # Setup
 BillingProtector uses [jitpack](https://jitpack.io/#AndreaCioccarelli/BillingProtector) as package repository.
 To use it you need to add that line to your project build.gradle file:
@@ -28,7 +32,7 @@ allprojects {
 And the dependency to your module build.gradle file:
 ```gradle
 dependencies {
-    implementation 'com.github.AndreaCioccarelli:BillingProtector:1.0.2'
+    implementation 'com.github.AndreaCioccarelli:BillingProtector:1.1.0'
 }
 ```
 
@@ -49,7 +53,7 @@ You don't need to destroy any references to that object in `onDestroy()` since i
 ### Checking Root Access
 ```kotlin
 if (bp.isRootInstalled()) {
-    finish();
+    finish()
 }
 ```
 
@@ -70,10 +74,10 @@ if (bp.arePirateAppsInstalled()) {
 }
 ```
 The method `arePirateAppsInstalled()` is a simple `for` cycle that iterates through every installed software to search if one of them matches with the packages bundled in the library.
-The method `getPirateAppsList()` instread returns a list of `PirateApp`s, that you can easily show to the user, or open in the default Sytsem Settings App Viewer with the given package name, and asking him to uninstall.
+The method `getPirateAppsList()` instread returns a list of `PirateApp`s, that you can easily display to the user, or open in the Sytsem Settings App Viewer with the given package name, and finally prompting to uninstall the selected software.
 
 **Warning:**
-- Never store the value of `arePirateAppsInstalled()` in a variable. Always calculate it at runtime, because your app can be easily cracked with lucky patcher otherwise (Also if no user will probably have way know it, he'd have to open e.g. Lucky Patcher, patch your app, launch it, uninstall Lucky Patcher, wait you to get on the purchase page and then install it again to compleate the process).
+- Never store the value of `arePirateAppsInstalled()` in a variable. Always calculate it at runtime, because your app can be easily cracked with Lucky Patcher otherwise (Also if no user will probably have way know it, he'd have to open e.g. Lucky Patcher, patch your app, launch it, uninstall Lucky Patcher, wait you to get on the purchase page and then install it again to compleate the process).
 
 ### Getting root binary path
 ```kotlin

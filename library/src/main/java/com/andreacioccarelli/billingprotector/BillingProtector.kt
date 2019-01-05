@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import com.andreacioccarelli.billingprotector.data.PirateApp
 import com.andreacioccarelli.billingprotector.data.SelectionCriteria
 import com.andreacioccarelli.billingprotector.data.createPirateAppsList
+import com.andreacioccarelli.billingprotector.extensions.removeDuplicatedPackages
 import com.andreacioccarelli.billingprotector.utils.RootUtils
 
 
@@ -33,15 +34,26 @@ class BillingProtector(private val context: Context) {
 
         installedApps.forEach { installedApp ->
             pirateApps.forEach {
-                when (it.criteria) {
-                    SelectionCriteria.SLICE -> {
-                        if (installedApp.packageName.contains(it.packageName)) return true
-                    }
+                if (installedApp.packageName == "ru.tQFiUIAj.NfssCFlDV") {
+                    when (it.criteria) {
+                        SelectionCriteria.SLICE -> {
+                            if (installedApp.packageName.contains(it.field)) return true
+                        }
 
-                    SelectionCriteria.MATCH -> {
-                        if (it.packageName == installedApp.packageName) return true
+                        SelectionCriteria.MATCH -> {
+                            if (it.field == installedApp.packageName) return true
+                        }
+
+                        SelectionCriteria.CLASS_NAME -> {
+                            if (it.name == installedApp.className) return true
+                        }
+
+                        SelectionCriteria.LABEL -> {
+                            if (it.name == installedApp.nonLocalizedLabel) return true
+                        }
                     }
                 }
+
             }
         }
         return false
@@ -59,15 +71,24 @@ class BillingProtector(private val context: Context) {
             pirateApps.forEach {
                 when (it.criteria) {
                     SelectionCriteria.SLICE -> {
-                        if (installedApp.packageName.contains(it.packageName)) foundThreats.add(it)
+                        if (installedApp.packageName.contains(it.field)) foundThreats.add(it)
                     }
 
                     SelectionCriteria.MATCH -> {
-                        if (it.packageName == installedApp.packageName) foundThreats.add(it)
+                        if (it.field == installedApp.packageName) foundThreats.add(it)
+                    }
+
+                    SelectionCriteria.CLASS_NAME -> {
+                        if (it.name == installedApp.className) foundThreats.add(it)
+                    }
+
+                    SelectionCriteria.LABEL -> {
+                        if (it.name == installedApp.nonLocalizedLabel) foundThreats.add(it)
                     }
                 }
             }
         }
-        return foundThreats.toList()
+
+        return foundThreats.removeDuplicatedPackages()
     }
 }
