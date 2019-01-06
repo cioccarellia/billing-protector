@@ -34,28 +34,26 @@ class BillingProtector(private val context: Context) {
 
         installedApps.forEach { installedApp ->
             pirateApps.forEach {
-                if (installedApp.packageName == "ru.tQFiUIAj.NfssCFlDV") {
-                    when (it.criteria) {
-                        SelectionCriteria.SLICE -> {
-                            if (installedApp.packageName.contains(it.field)) return true
-                        }
+                when (it.criteria) {
+                    SelectionCriteria.SLICE -> {
+                        if (installedApp.packageName.contains(it.field)) return true
+                    }
 
-                        SelectionCriteria.MATCH -> {
-                            if (it.field == installedApp.packageName) return true
-                        }
+                    SelectionCriteria.MATCH -> {
+                        if (it.field == installedApp.packageName) return true
+                    }
 
-                        SelectionCriteria.CLASS_NAME -> {
-                            if (it.name == installedApp.className) return true
-                        }
+                    SelectionCriteria.CLASS_NAME -> {
+                        if (it.name == installedApp.className) return true
+                    }
 
-                        SelectionCriteria.LABEL -> {
-                            if (it.name == installedApp.nonLocalizedLabel) return true
-                        }
+                    SelectionCriteria.LABEL -> {
+                        if (it.name == installedApp.nonLocalizedLabel) return true
                     }
                 }
-
             }
         }
+
         return false
     }
 
