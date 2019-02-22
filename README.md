@@ -17,7 +17,7 @@ Remember that a skilled hacker will always find a way to crack your code. This l
 
 ### Bulletin
 At the end of December 2018, Lucky Patcher 8.0.0 was released, along with the possibility to randomize package name and make the app invisible from google play store and other defense systems.
-The 5th of January, BillingProtector 1.1.0 update introduces support for custom package parameter matching and comes along with the ability of detecting every lucky patcher installation
+The 5th of January, BillingProtector 1.1.0 update introduces support for custom package parameter matching and comes along with the ability of detecting every masked lucky patcher installation
 
 # Setup
 BillingProtector uses [jitpack](https://jitpack.io/#AndreaCioccarelli/BillingProtector) as package repository.
@@ -48,7 +48,7 @@ BillingProtector has different functionalities and can be used for different pur
 val bp = BillingProtector(context)
 ```
 The code showed above creates an instance of the BillingProtector class passing as only argument the context of an application/activity.
-You don't need to destroy any references to that object in `onDestroy()` since it isn't attached to your context.
+You don't need to destroy any references to that object in `onDestroy()` since it doesn't make references to your context.
 
 ### Checking Root Access
 ```kotlin
@@ -57,12 +57,11 @@ if (bp.isRootInstalled()) {
 }
 ```
 
-The method `isRootInstalled()` is going to execute a built-in unix program to determine if the binary `su`, the root permission controller, is present on the system and it will analyze the path of that binary. From this evaluation the result is returned under boolean type.
+The method `isRootInstalled()` is going to execute a built-in unix program to determine if the binary `su`, the root permission controller, is present on the end-user system and it will analyze the path of that binary. From this evaluation the result is returned using boolean type.
 This method is safe at 100% for 3 reasons.
 - **It's not thread-blocking**, because it executes as less shell commands as possible.
 - **It doesn't require root permissions**. Most of the root-checking software analyzes root access presence by actually executing `su` and analyzing the command stdout and stderr. This is slow, unefficient, thread-blocking, it requires your app to ask for root permissions and, in some cases of incompatibility / broken installation, it will freeze your app causing an ANR.
-- **The result is reliable**. Many root managers I've had the opportunity to study while building [Impactor](https://play.google.com/store/apps/details?id=com.andreacioccarelli.impactor) places the root binary in hidden directories, under different partitions and among other equally-named programs. This is messy and it can lead to wrong results, basing on the installation type, on the root manager internal mechanism, on the root installation type, and so on and so forth. This tiny trick is efficient and reliable, since it will always just pick the system-linked `su` command.
-
+- **The result is reliable**. Many root managers I've had the opportunity to study while building [Impactor](https://play.google.com/store/apps/details?id=com.andreacioccarelli.impactor) place the root binary in hidden directories, under different partitions and among other equally-named programs. This is messy and it can lead to wrong results, basing on the installation type, on the root manager internal mechanism, on the root installation version, and so on and so forth. This tiny trick is efficient and reliable, since it will always just pick the system-linked `su` command.
 
 ### Checking pirate software presence
 ```kotlin
@@ -73,11 +72,11 @@ if (bp.arePirateAppsInstalled()) {
     finish()
 }
 ```
-The method `arePirateAppsInstalled()` is a simple `for` cycle that iterates through every installed software to search if one of them matches with the packages bundled in the library.
-The method `getPirateAppsList()` instread returns a list of `PirateApp`s, that you can easily display to the user, or open in the Sytsem Settings App Viewer with the given package name, and finally prompting to uninstall the selected software.
+The method `arePirateAppsInstalled()` is a simple `for` cycle that iterates through every installed app to search if one of them matches with the parsing metadata bundled in the library.
+The method `getPirateAppsList()` instead returns a list of `PirateApp`s, that you can easily display to the user, or open in the sytsem settings app screen with the given package name, and finally prompting to uninstall the selected software.
 
 **Warning:**
-- Never store the value of `arePirateAppsInstalled()` in a variable. Always calculate it at runtime, because your app can be easily cracked with Lucky Patcher otherwise (Also if no user will probably have way know it, he'd have to open e.g. Lucky Patcher, patch your app, launch it, uninstall Lucky Patcher, wait you to get on the purchase page and then install it again to compleate the process).
+- Never store the value of `arePirateAppsInstalled()` in a variable. Always calculate it at runtime, because your app can be cracked with Lucky Patcher otherwise (Also if no user will probably have way know it, he'd have to open e.g. Lucky Patcher, patch your app, launch it, uninstall Lucky Patcher, wait you to get on the purchase page and then install it again to compleate the process) or witn a basic memory injection attack.
 
 ### Getting root binary path
 ```kotlin
@@ -86,4 +85,4 @@ toast(bp.getRootBinatyPath())
 
 This method returns the absolute path of the `su` binary, if present. If not, an empty string is returned.
 To operate with this file you need root permission since it is surely placed in a protected device zone.
-This method works also if you don't require root permission though.
+This method works also if you don't require root permission.
