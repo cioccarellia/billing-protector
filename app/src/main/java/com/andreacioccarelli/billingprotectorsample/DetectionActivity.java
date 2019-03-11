@@ -35,6 +35,7 @@ public class DetectionActivity extends Activity {
         });
     }
 
+    @SuppressLint("SetTextI18n")
     void updateData() {
         final TextView mxp = findViewById(R.id.mxp);
         mxp.setText(

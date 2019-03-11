@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.andreacioccarelli.billingprotector
 
 import android.content.Context
@@ -28,34 +30,7 @@ class BillingProtector(private val context: Context) {
     /**
      * Returns a boolean that indicates the presence of pirate apps in the host system
      * */
-    fun arePirateAppsInstalled(): Boolean {
-        val installedApps = context.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
-        val pirateApps = createPirateAppsList()
-
-        installedApps.forEach { installedApp ->
-            pirateApps.forEach {
-                when (it.criteria) {
-                    SelectionCriteria.SLICE -> {
-                        if (installedApp.packageName.contains(it.field)) return true
-                    }
-
-                    SelectionCriteria.MATCH -> {
-                        if (it.field == installedApp.packageName) return true
-                    }
-
-                    SelectionCriteria.CLASS_NAME -> {
-                        if (it.name == installedApp.className) return true
-                    }
-
-                    SelectionCriteria.LABEL -> {
-                        if (it.name == installedApp.nonLocalizedLabel) return true
-                    }
-                }
-            }
-        }
-
-        return false
-    }
+    fun arePirateAppsInstalled() = getPirateAppsList().isNotEmpty()
 
     /**
      * Returns a list of the installed apps detected as pirate software
@@ -72,16 +47,23 @@ class BillingProtector(private val context: Context) {
                         if (installedApp.packageName.contains(it.field)) foundThreats.add(it)
                     }
 
-                    SelectionCriteria.MATCH -> {
+                    SelectionCriteria.MATCH_PACKAGE -> {
                         if (it.field == installedApp.packageName) foundThreats.add(it)
                     }
 
                     SelectionCriteria.CLASS_NAME -> {
-                        if (it.name == installedApp.className) foundThreats.add(it)
+                        if (installedApp.className != null) {
+                            if (installedApp.className.contains(it.field)) foundThreats.add(it)
+                        }
                     }
 
                     SelectionCriteria.LABEL -> {
-                        if (it.name == installedApp.nonLocalizedLabel) foundThreats.add(it)
+                        val label = installedApp.loadLabel(context.packageManager)
+                        val nonLocalizedLabel = installedApp.nonLocalizedLabel
+
+                        when (it.field) {
+                            label, nonLocalizedLabel -> foundThreats.add(it)
+                        }
                     }
                 }
             }
