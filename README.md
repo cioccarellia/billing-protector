@@ -16,8 +16,11 @@ I've been implmenting by myself on every app of mine a complex and different sec
 Remember that a skilled hacker will always find a way to crack your code. This library is a harsh barrier that will stop the 99% of the other kiddies.
 
 ### Bulletin
-At the end of December 2018, Lucky Patcher 8.0.0 was released, along with the possibility to randomize package name and make the app invisible from google play store and other defense systems.
+- At the end of December 2018, Lucky Patcher 8.0.0 was released, along with the possibility to randomize package name and make the app invisible from Google Play Protect and other defense systems.
 The 5th of January, BillingProtector 1.1.0 update introduces support for custom package parameter matching and comes along with the ability of detecting every masked lucky patcher installation
+- Lucky Patcher (12 March 2018) had a nasty trick which allowed them to show their label normally, [but instread with different charset](https://twitter.com/ACioccarelli/status/1105249064147472385), avoiding normal detction. 
+BillingProtector 1.1.1 detects that version, the Lucky Patcher emulation server, Installer and the Proxy package to bypass app purchase logic.
+
 
 # Setup
 BillingProtector uses [jitpack](https://jitpack.io/#AndreaCioccarelli/BillingProtector) as package repository.
