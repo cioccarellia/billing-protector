@@ -4,17 +4,19 @@ package com.andreacioccarelli.billingprotector
 
 import android.content.Context
 import android.content.pm.PackageManager
+import com.andreacioccarelli.billingprotector.data.DetectionCause
 import com.andreacioccarelli.billingprotector.data.PirateApp
 import com.andreacioccarelli.billingprotector.data.SelectionCriteria
-import com.andreacioccarelli.billingprotector.data.createPirateAppsList
 import com.andreacioccarelli.billingprotector.extensions.removeDuplicatedPackages
+import com.andreacioccarelli.billingprotector.extensions.valueOrNull
 import com.andreacioccarelli.billingprotector.utils.RootUtils
+import com.andreacioccarelli.billingprotector.utils.assembleAppList
 
 
 /**
- * Created by andrea on 2018/Jul.
- * Part of the package com.andreacioccarelli.billingprotector
+ * Designed and Developed by Andrea Cioccarelli
  */
+
 class BillingProtector(private val context: Context) {
 
     /**
@@ -38,16 +40,16 @@ class BillingProtector(private val context: Context) {
     fun getPirateAppsList(): List<PirateApp> {
         val foundThreats = mutableListOf<PirateApp>()
         val installedApps = context.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
-        val pirateApps = createPirateAppsList()
+        val pirateApps = assembleAppList(DetectionCause.PIRACY)
 
         installedApps.forEach { installedApp ->
             pirateApps.forEach {
                 when (it.criteria) {
-                    SelectionCriteria.SLICE -> {
+                    SelectionCriteria.CONTAINS -> {
                         if (installedApp.packageName.contains(it.field)) foundThreats.add(it)
                     }
 
-                    SelectionCriteria.MATCH_PACKAGE -> {
+                    SelectionCriteria.MATCH -> {
                         if (it.field == installedApp.packageName) foundThreats.add(it)
                     }
 
@@ -57,12 +59,13 @@ class BillingProtector(private val context: Context) {
                         }
                     }
 
-                    SelectionCriteria.LABEL -> {
-                        val label = installedApp.loadLabel(context.packageManager)
-                        val nonLocalizedLabel = installedApp.nonLocalizedLabel
+                    SelectionCriteria.LABEL_REGEXP -> {
+                        val label = installedApp.loadLabel(context.packageManager).valueOrNull()
+                        val nonLocalizedLabel = installedApp.nonLocalizedLabel.valueOrNull()
 
-                        when (it.field) {
-                            label, nonLocalizedLabel -> foundThreats.add(it)
+                        when  {
+                            label.matches(it.field.toRegex())
+                                || nonLocalizedLabel.matches(it.field.toRegex()) -> foundThreats.add(it)
                         }
                     }
                 }

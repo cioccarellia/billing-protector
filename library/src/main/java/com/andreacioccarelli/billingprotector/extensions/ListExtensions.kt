@@ -11,8 +11,8 @@ fun MutableList<PirateApp>.removeDuplicatedPackages(): List<PirateApp> {
     val list = mutableListOf<PirateApp>()
 
     forEach {
-        if (it.criteria == SelectionCriteria.MATCH_PACKAGE ||
-                it.criteria == SelectionCriteria.SLICE ||
+        if (it.criteria == SelectionCriteria.MATCH ||
+                it.criteria == SelectionCriteria.CONTAINS ||
                 !list.containsPackage(it.field)) {
             list.add(it)
         }
@@ -23,8 +23,11 @@ fun MutableList<PirateApp>.removeDuplicatedPackages(): List<PirateApp> {
 
 fun MutableList<PirateApp>.containsPackage(pk: String): Boolean {
     for (item in this) {
-        if (item.detectionName == pk) return true
+        if (item.name == pk) return true
     }
 
     return false
 }
+
+fun MutableList<PirateApp>.add(field: String, hash: String, selectionCriteria: SelectionCriteria, name: String)
+        = add(PirateApp(field, hash, selectionCriteria, name))

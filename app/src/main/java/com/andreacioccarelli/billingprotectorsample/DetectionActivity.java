@@ -7,8 +7,11 @@ import android.os.Vibrator;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.andreacioccarelli.billingprotector.BillingProtector;
+
+import java.util.concurrent.TimeUnit;
 
 public class DetectionActivity extends Activity {
 
@@ -18,10 +21,10 @@ public class DetectionActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_secondary);
+        setContentView(R.layout.activity);
 
         bp = new BillingProtector(this);
-        updateData();
+        runRefresh();
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -30,9 +33,30 @@ public class DetectionActivity extends Activity {
                 Vibrator vib = (Vibrator) getSystemService(VIBRATOR_SERVICE);
                 vib.vibrate(100);
 
-                updateData();
+                runRefresh();
             }
         });
+    }
+
+    void runRefresh() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                long mills = System.currentTimeMillis();
+                updateData();
+
+                long millsAfter = System.currentTimeMillis();
+                long diff = millsAfter - mills;
+                final long seconds = TimeUnit.MILLISECONDS.toSeconds(diff);
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(DetectionActivity.this, "Re-computed. Time: " + seconds + "s", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }).run();
     }
 
     @SuppressLint("SetTextI18n")
