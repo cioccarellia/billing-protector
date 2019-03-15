@@ -7,8 +7,6 @@ import android.content.pm.PackageManager
 import com.andreacioccarelli.billingprotector.data.DetectionCause
 import com.andreacioccarelli.billingprotector.data.PirateApp
 import com.andreacioccarelli.billingprotector.data.SelectionCriteria
-import com.andreacioccarelli.billingprotector.extensions.removeDuplicatedPackages
-import com.andreacioccarelli.billingprotector.extensions.valueOrNull
 import com.andreacioccarelli.billingprotector.utils.RootUtils
 import com.andreacioccarelli.billingprotector.utils.assembleAppList
 
@@ -68,14 +66,13 @@ class BillingProtector(private val context: Context) {
                         } else {
                             val label = installedApp.loadLabel(context.packageManager)
 
-                            if (label.matches(regexp))
-                                foundThreats.add(it)
+                            if (label.matches(regexp)) foundThreats.add(it)
                         }
                     }
                 }
             }
         }
 
-        return foundThreats.removeDuplicatedPackages()
+        return foundThreats
     }
 }

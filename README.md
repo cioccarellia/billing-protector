@@ -35,7 +35,7 @@ allprojects {
 And the dependency to your module build.gradle file:
 ```gradle
 dependencies {
-    implementation 'com.github.AndreaCioccarelli:BillingProtector:1.3.0'
+    implementation 'com.github.AndreaCioccarelli:BillingProtector:1.3.1'
 }
 ```
 
@@ -83,7 +83,7 @@ The method `getPirateAppsList()` instead returns a list of `PirateApp`s, that yo
 
 ### Getting root binary path
 ```kotlin
-toast(bp.getRootBinatyPath())
+bp.getRootBinatyPath()
 ```
 
 This method returns the absolute path of the `su` binary, if present. If not, an empty string is returned.
