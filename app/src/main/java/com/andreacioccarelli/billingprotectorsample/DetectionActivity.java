@@ -10,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.andreacioccarelli.billingprotector.BillingProtector;
-
 import java.util.concurrent.TimeUnit;
 
 public class DetectionActivity extends Activity {

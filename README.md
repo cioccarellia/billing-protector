@@ -35,7 +35,7 @@ allprojects {
 And the dependency to your module build.gradle file:
 ```gradle
 dependencies {
-    implementation 'com.github.AndreaCioccarelli:BillingProtector:1.3.1'
+    implementation 'com.github.AndreaCioccarelli:BillingProtector:1.3.2'
 }
 ```
 

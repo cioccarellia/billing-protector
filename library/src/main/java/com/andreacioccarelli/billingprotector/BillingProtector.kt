@@ -1,4 +1,4 @@
-@file:Suppress("unused")
+@file:Suppress("unused", "MemberVisibilityCanBePrivate")
 
 package com.andreacioccarelli.billingprotector
 
@@ -9,7 +9,6 @@ import com.andreacioccarelli.billingprotector.data.PirateApp
 import com.andreacioccarelli.billingprotector.data.SelectionCriteria
 import com.andreacioccarelli.billingprotector.utils.RootUtils
 import com.andreacioccarelli.billingprotector.utils.assembleAppList
-
 
 /**
  * Designed and Developed by Andrea Cioccarelli
