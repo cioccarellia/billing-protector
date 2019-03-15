@@ -133,7 +133,7 @@ object definitions {
          * Lucky Patcher
          * */
         const val field1 =      "-*[LІ][uцџ][cс][kкќӄ][yуӳӱӰӯӮУў][-.#@_*/\\+`\"$   ~][PРҎҏр][aаӑӓ][tт][cс][hнһӈҺ][eєёеҽзэҿ][rя][sѕ]?-*"
-        const val khash1 =      "6a730bba41046d0a9a9ec2a24f871380"
+        const val khash1 =      "b584cd93736ebabb46d10c84ea464186"
         const val kname1 =      lucky_patcher
     }
 

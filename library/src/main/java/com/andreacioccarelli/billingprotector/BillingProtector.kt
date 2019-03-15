@@ -60,12 +60,16 @@ class BillingProtector(private val context: Context) {
                     }
 
                     SelectionCriteria.LABEL_REGEXP -> {
-                        val label = installedApp.loadLabel(context.packageManager).valueOrNull()
-                        val nonLocalizedLabel = installedApp.nonLocalizedLabel.valueOrNull()
+                        val nonLocalizedLabel = installedApp.nonLocalizedLabel
+                        val regexp = it.field.toRegex()
 
-                        when  {
-                            label.matches(it.field.toRegex())
-                                || nonLocalizedLabel.matches(it.field.toRegex()) -> foundThreats.add(it)
+                        if (nonLocalizedLabel != null) {
+                            if (nonLocalizedLabel.matches(regexp)) foundThreats.add(it)
+                        } else {
+                            val label = installedApp.loadLabel(context.packageManager)
+
+                            if (label.matches(regexp))
+                                foundThreats.add(it)
                         }
                     }
                 }

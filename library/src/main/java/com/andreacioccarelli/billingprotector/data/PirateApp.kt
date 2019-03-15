@@ -15,6 +15,7 @@ data class PirateApp(
 
     init {
         val localComputedHash = HashGeneratior.hash(field)
-        if (hash != localComputedHash) throw SecurityException("Mackage name checksum mismatch")
+        if (hash != localComputedHash)
+            throw SecurityException("Mackage name checksum mismatch: field -> [$field], hash -> [$hash], criteria -> [$criteria]")
     }
 }
