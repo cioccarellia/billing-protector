@@ -62,9 +62,9 @@ if (bp.isRootInstalled()) {
 The method `isRootInstalled()` is going to execute a built-in unix program to determine if the binary `su` (the root permission controller) is present on the system, and it will analyze the path of that binary. From this evaluation the result is returned.
 
 This method is safe at 100% for 3 reasons.
-- **It's not thread-blocking**, because it executes as less shell commands as possible.
-- **It doesn't require root permissions**. Most of the root-checking software analyzes root access presence by actually executing `su` and analyzing the command stdout and stderr. This is slow, unefficient, thread-blocking, it requires your app to ask for root permissions and, in some cases of incompatibility / broken installation, it will freeze your app causing an ANR.
-- **The result is reliable**. Many root managers I've had the opportunity to study while building [Impactor](https://play.google.com/store/apps/details?id=com.andreacioccarelli.impactor) place the root binary in hidden directories, under different partitions and among other equally-named programs. This is messy and it can lead to wrong results, basing on the installation type, on the root manager internal mechanism, on the root installation version, and so on and so forth. This tiny trick is efficient and reliable, since it will always just pick the system-linked `su` command.
+- **It's not thread-blocking**, because it executes few, passive, fast and synchronous tasks
+- **It doesn't ask for root permission**. Most of root-checking software analyzes root access presence by actually executing `su` and analyzing the command *stdout* and *stderr*. This is slow, unefficient, thread-blocking, it requires your app to ask for root permissions and, in some cases of incompatibility / broken installation, it will freeze your app.
+- **The result is reliable**. Many root managers I've had the opportunity to study while building [Impactor](https://play.google.com/store/apps/details?id=com.andreacioccarelli.impactor) place the root binary in hidden directories, under different partitions and among other equally-named programs. This is messy and it can lead to wrong results, basing on the installation type, on the root manager internal mechanism, on the root installation version, and so on and so forth. This tiny hack is efficient and reliable, since it will always just pick the right system-wide `su` command.
 
 ### Checking pirate software presence
 ```kotlin
@@ -75,11 +75,11 @@ if (bp.arePirateAppsInstalled()) {
     finish()
 }
 ```
-The method `arePirateAppsInstalled()` is a simple `for` cycle that iterates through every installed app to search if one of them matches with the parsing metadata bundled in the library.
-The method `getPirateAppsList()` instead returns a list of `PirateApp`s, that you can easily display to the user, or open in the sytsem settings app screen with the given package name, and finally prompting to uninstall the selected software.
+The method `arePirateAppsInstalled()` is a simple iteration that goes through every installed package to check if one of them matches with the analysis metadata bundled in the library.
+The method `getPirateAppsList()` returns a list of `PirateApp`s, that you can display to the user, launch in the system settings, retrive a specific package name or prompting to uninstall the selected software.
 
 **Warning:**
-- Never store the value of `arePirateAppsInstalled()` in a variable. Always calculate it at runtime, because your app can be cracked with Lucky Patcher otherwise (Also if no user will probably have way know it, he'd have to open e.g. Lucky Patcher, patch your app, launch it, uninstall Lucky Patcher, wait you to get on the purchase page and then install it again to compleate the process) or witn a basic memory injection attack.
+- Never store the value of `arePirateAppsInstalled()` in a property. Always evaluate it at run-time, because your app can be cracked otherwise (Also if no user will probably have way know it, he'd have to open e.g. Lucky Patcher, patch your app, launch it, uninstall Lucky Patcher, wait you to get on the purchase page and then install it again to compleate the process), following a basic memory injection attack.
 
 ### Getting root binary path
 ```kotlin
@@ -87,5 +87,5 @@ bp.getRootBinatyPath()
 ```
 
 This method returns the absolute path of the `su` binary, if present. If not, an empty string is returned.
-To operate with this file you need root permission since it is surely placed in a protected device zone.
-This method works also if you don't require root permission.
+To operate with this file you need root permission since it will be placed in a protected file system zone.
+This method works if you don't require root permissions too.
