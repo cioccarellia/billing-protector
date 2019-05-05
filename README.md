@@ -6,20 +6,19 @@
 [![Min sdk](https://img.shields.io/badge/minsdk-14-yellow.svg)](https://github.com/AndreaCioccarelli/BillingProtector/blob/master/library/build.gradle)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/AndreaCioccarelli/BillingProtector/blob/master/LICENSE)
 
-BillingProtector is a tiny and robust library for Android, entirely written in Kotlin. Its main purpose is to check the end-user device state & to secure purchases. 
-Plus, it allows you to block a transition process if the application has been hacked or patched, if the device environment is corrupted or if other suspicious conditions are detected; it can also be used to prevent your apps from being executed on an unprotected/insecure operative system, like Snapchat does with rooted devices.
+BillingProtector is a tiny and robust library for Android, entirely written in Kotlin. Its main purpose is to check the android device state & to provide a way to execute purchases just when it is safe. 
+Plus, it allows you to block a transition process if the application has been hacked or patched, if the device environment is corrupted or if any other suspicious conditions are detected; it can also be used to prevent your apps from being executed on an unprotected/insecure operative system, like Snapchat does with rooted devices.
 
 ### Backgrounding
-Hacking android applications is way easier than how it is thought to be. Softwares like [Lucky Patcher](https://www.luckypatchers.com) are phenomenally written to bypass all your first-line defenses and to edit your app executable code, redirecting your purchases to the pirate app and not to the Google Play Store.
-That's a violation of the Developer's product and business, since it won't just make you lose money but also users and credibility.
-I've been implmenting by myself on every app of mine a complex and different security scheme each time. Then I decided to put everything together and to realize this project of crucial importance for someone's business, in parallel with [CryptoPrefs](https://github.com/AndreaCioccarelli/CryptoPrefs).
-Remember that a skilled hacker will always find a way to crack your code. This library is a harsh barrier that will stop the 99% of the other kiddies.
+Hacking android applications is way easier than how it is thought to be. Softwares like [Lucky Patcher](https://www.luckypatchers.com) are written to bypass all your first-line defenses and to edit your app executable code, redirecting your purchases to the pirate app, and *not* to the Google Play Store.
+I've been implmenting by myself a complex and different security scheme each time, then I decided to put everything together and to realize this project, in parallel with [CryptoPrefs](https://github.com/AndreaCioccarelli/CryptoPrefs).
+Remember that a skilled hacker will always find a way to crack your code. This library is a harsh barrier that will stop the 99% of the others.
 
 ### Bulletin
 - At the end of December 2018, Lucky Patcher 8.0.0 was released, along with the possibility to randomize package name and make the app invisible from Google Play Protect and other defense systems.
 The 5th of January, BillingProtector 1.1.0 update introduces support for custom package parameter matching and comes along with the ability of detecting every masked lucky patcher installation
-- Lucky Patcher (12 March 2018) had a nasty trick which allowed them to show their label normally, [but instread with different charset](https://twitter.com/ACioccarelli/status/1105249064147472385), avoiding normal detction. 
-BillingProtector 1.3.0 detects that version, the Lucky Patcher emulation server, Installer and the Proxy to bypass app purchase mechanism.
+- Lucky Patcher (12 March 2018) developed an hack which allowed to show its package label normally, [but using instead different charset](https://twitter.com/ACioccarelli/status/1105249064147472385), avoiding normal detction. 
+BillingProtector 1.3.0 detects that version, the Lucky Patcher billing emulation server, the installer and the proxy to bypass app purchase mechanism.
 
 
 # Setup
@@ -41,17 +40,17 @@ dependencies {
 
 # Usage
 BillingProtector has different functionalities and can be used for different purposes.
-- Check for pirate applications on the end-user device
-- List the found threads on the end-user device
-- Determine if the device has root access without requesting it
-- Determine root binary path in the operative system
+- Checking for pirate applications on the end-user device
+- Listing threats on the end-user device
+- Determining whether the device is rooted
+- Determining the root binary path in the file system
 
 ### Initialization
 ```kotlin
 val bp = BillingProtector(context)
 ```
-The code showed above creates an instance of the BillingProtector class passing as only argument the context of an application/activity.
-You don't need to destroy any references to that object in `onDestroy()` since it doesn't make references to your context.
+The code shown above creates an instance of the BillingProtector clas, passing as only argument the context of an application/activity.
+You don't need to destroy any reference to that object in `onDestroy()` since it doesn't hook with your context.
 
 ### Checking Root Access
 ```kotlin
@@ -60,7 +59,8 @@ if (bp.isRootInstalled()) {
 }
 ```
 
-The method `isRootInstalled()` is going to execute a built-in unix program to determine if the binary `su`, the root permission controller, is present on the end-user system and it will analyze the path of that binary. From this evaluation the result is returned using boolean type.
+The method `isRootInstalled()` is going to execute a built-in unix program to determine if the binary `su` (the root permission controller) is present on the system, and it will analyze the path of that binary. From this evaluation the result is returned.
+
 This method is safe at 100% for 3 reasons.
 - **It's not thread-blocking**, because it executes as less shell commands as possible.
 - **It doesn't require root permissions**. Most of the root-checking software analyzes root access presence by actually executing `su` and analyzing the command stdout and stderr. This is slow, unefficient, thread-blocking, it requires your app to ask for root permissions and, in some cases of incompatibility / broken installation, it will freeze your app causing an ANR.
