@@ -9,63 +9,85 @@ import com.andreacioccarelli.billingprotector.data.PirateApp
 import com.andreacioccarelli.billingprotector.data.SelectionCriteria
 import com.andreacioccarelli.billingprotector.utils.RootUtils
 import com.andreacioccarelli.billingprotector.utils.assembleAppList
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 /**
  * Designed and Developed by Andrea Cioccarelli
  */
 
-class BillingProtector(private val context: Context) {
+class BillingProtector(
+    private val context: Context,
+    val simulateSafeEnvironment: Boolean = false
+) {
+    /**
+     * Lazily-evaluated and statically-generated pirate apps list
+     * */
+    private val pirateApps by lazy { assembleAppList(DetectionCause.PIRACY) }
 
     /**
      * Returns a boolean that represents the device root state.
      * */
-    fun isRootInstalled() = RootUtils.hasRootAccess()
+    fun isRootInstalled(): Boolean = RootUtils.hasRootAccess()
 
     /**
      * Returns a String, representing the root binary path, if present.
      * */
-    fun getRootBinaryPath() = RootUtils.extractPath()
-
-    /**
-     * Returns a boolean that indicates the presence of pirate apps in the host system
-     * */
-    fun arePirateAppsInstalled() = getPirateAppsList().isNotEmpty()
+    fun getRootBinaryPath(): String = RootUtils.extractPath()
 
     /**
      * Returns a list of the installed apps detected as pirate software
      * */
     fun getPirateAppsList(): List<PirateApp> {
-        val foundThreats = mutableListOf<PirateApp>()
-        val installedApps = context.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
-        val pirateApps = assembleAppList(DetectionCause.PIRACY)
+        if (simulateSafeEnvironment) return emptyList()
+        return startScan()
+    }
 
-        installedApps.forEach { installedApp ->
-            pirateApps.forEach {
-                when (it.criteria) {
+    /**
+     * Returns a list of the installed apps detected as pirate software
+     * using kotlin coroutines
+     * */
+    suspend fun getPirateAppsListAsync(): List<PirateApp> {
+        if (simulateSafeEnvironment) return emptyList()
+        return withContext(CoroutineScope(Dispatchers.Default).coroutineContext) { startScan() }
+    }
+
+    /**
+     * Internal function actually performing the security task
+     * */
+    private fun startScan(): List<PirateApp> {
+        val foundThreats = mutableListOf<PirateApp>()
+
+        for (installedApp in context.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)) {
+            pirateApps.forEach { pirateApp ->
+                when (pirateApp.criteria) {
                     SelectionCriteria.CONTAINS -> {
-                        if (installedApp.packageName.contains(it.field)) foundThreats.add(it)
+                        if (installedApp.packageName.contains(pirateApp.field)) foundThreats.add(pirateApp)
                     }
 
                     SelectionCriteria.MATCH -> {
-                        if (it.field == installedApp.packageName) foundThreats.add(it)
+                        if (pirateApp.field == installedApp.packageName) foundThreats.add(pirateApp)
                     }
 
                     SelectionCriteria.CLASS_NAME -> {
-                        if (installedApp.className != null) {
-                            if (installedApp.className.contains(it.field)) foundThreats.add(it)
+                        installedApp.className?.let {
+                            if (installedApp.className.contains(pirateApp.field)) {
+                                foundThreats.add(pirateApp)
+                            }
                         }
                     }
 
                     SelectionCriteria.LABEL_REGEXP -> {
                         val nonLocalizedLabel = installedApp.nonLocalizedLabel
-                        val regexp = it.field.toRegex()
+                        val regexp = pirateApp.field.toRegex()
 
                         if (nonLocalizedLabel != null) {
-                            if (nonLocalizedLabel.matches(regexp)) foundThreats.add(it)
+                            if (nonLocalizedLabel.matches(regexp)) foundThreats.add(pirateApp)
                         } else {
                             val label = installedApp.loadLabel(context.packageManager)
 
-                            if (label.matches(regexp)) foundThreats.add(it)
+                            if (label.matches(regexp)) foundThreats.add(pirateApp)
                         }
                     }
                 }

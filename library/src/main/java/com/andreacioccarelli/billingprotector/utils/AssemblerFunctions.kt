@@ -25,7 +25,6 @@ fun assembleAppList(cause: DetectionCause): List<PirateApp> {
                 add(definitions.match.field2, definitions.match.khash2, SelectionCriteria.MATCH, definitions.match.kname2)
                 add(definitions.match.field3, definitions.match.khash3, SelectionCriteria.MATCH, definitions.match.kname3)
                 add(definitions.match.field4, definitions.match.khash4, SelectionCriteria.MATCH, definitions.match.kname4)
-                add(definitions.match.field5, definitions.match.khash5, SelectionCriteria.MATCH, definitions.match.kname5)
                 add(definitions.match.field6, definitions.match.khash6, SelectionCriteria.MATCH, definitions.match.kname6)
                 add(definitions.match.field7, definitions.match.khash7, SelectionCriteria.MATCH, definitions.match.kname7)
                 add(definitions.match.field8, definitions.match.khash8, SelectionCriteria.MATCH, definitions.match.kname8)
@@ -35,6 +34,7 @@ fun assembleAppList(cause: DetectionCause): List<PirateApp> {
                 add(definitions.classname.field1, definitions.classname.khash1, SelectionCriteria.CLASS_NAME, definitions.classname.kname1)
 
                 add(definitions.regexp.field1, definitions.regexp.khash1, SelectionCriteria.LABEL_REGEXP, definitions.regexp.kname1)
+                add(definitions.regexp.field2, definitions.regexp.khash2, SelectionCriteria.LABEL_REGEXP, definitions.regexp.kname2)
             }
         }
     }

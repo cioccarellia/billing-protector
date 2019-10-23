@@ -9,15 +9,20 @@ import kotlin.experimental.and
  */
 
 object HashGeneratior {
+    private const val HASH_METHOD = "MD5"
+
     fun hash(input: String): String {
-        val md = MessageDigest.getInstance("MD5")
+        val md = MessageDigest.getInstance(HASH_METHOD)
         md.update(input.toByteArray())
+
         val digest = md.digest()
-        val sb = StringBuffer()
+        val buffer = StringBuffer()
+        val magicByte = 0xff.toByte()
+
         for (b in digest) {
-            sb.append(String.format("%02x", b and 0xff.toByte()))
+            buffer.append(String.format("%02x", b and magicByte))
         }
 
-        return sb.toString()
+        return buffer.toString()
     }
 }

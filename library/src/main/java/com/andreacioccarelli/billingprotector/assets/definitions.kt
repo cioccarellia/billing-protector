@@ -35,13 +35,9 @@ object definitions {
         const val khash3 =      "c2f5ef59294b96727c061ecc0a792392"
         const val kname3 =      lucky_patcher
 
-        const val field4 =      "ru.aaaaaaac.installer"
-        const val khash4 =      "e74010e84eb49bc67f51554c60b8e222"
+        const val field4 =      "com.android.vending.licensing.ILicensingService"
+        const val khash4 =      "238b2cc715459f7b9458e0e0744b15e2"
         const val kname4 =      lucky_patcher
-
-        const val field5 =      "com.android.vending.licensing.ILicensingService"
-        const val khash5 =      "238b2cc715459f7b9458e0e0744b15e2"
-        const val kname5 =      lucky_patcher
 
         /**
          * Uret patcher
@@ -132,9 +128,32 @@ object definitions {
         /**
          * Lucky Patcher
          * */
-        const val field1 =      "-*[LІ][uцџ][cс][kкќӄ][yуӳӱӰӯӮУў][-.#@_*/\\+`\"$   ~][PРҎҏр][aаӑӓ][tт][cс][hнһӈҺ][eєёеҽзэҿ][rя][sѕ]?-*"
-        const val khash1 =      "b584cd93736ebabb46d10c84ea464186"
+        private const val l = "LІＬ"
+        private const val u = "uцџｕ"
+        private const val c = "cсçｃ"
+        private const val k = "kкќӄｋ"
+        private const val y = "yуӳӱӰӯӮУўｙ"
+        private const val space = """+\-*\/.#@__\`"${'$'} ~    　"""
+        private const val p = "PРҎҏрＰｐ"
+        private const val a = "aаӑӓａ"
+        private const val t = "tтｔ"
+        private const val h = "hнһӈҺｈ"
+        private const val e = "eєёеҽзэҿｅ"
+        private const val r = "rяｒ"
+        private const val s = "sѕꜱ"
+
+
+        const val field1 =      """-*[$l][$u][$c][$k][$y][$space][$p][$a][$t][$c][$h][$e][$r][$s]?-*"""
+        const val khash1 =      "3b06b73e54dddf47fe5b20833f94a2c8"
         const val kname1 =      lucky_patcher
+
+
+        /**
+         * Lucky Patcher
+         * */
+        const val field2 =      """ru\..?.?[a]{3,}.?.?.?.?.?\.installer"""
+        const val khash2 =      "bbf8435e91dd3c17b741c2aa4b15d763"
+        const val kname2 =      lucky_patcher
     }
 
 }

@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 public class DetectionActivity extends Activity {
 
     BillingProtector bp;
+    private int i = 0;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -22,7 +23,7 @@ public class DetectionActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity);
 
-        bp = new BillingProtector(this);
+        bp = new BillingProtector(this, false);
         runRefresh();
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -51,7 +52,7 @@ public class DetectionActivity extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(DetectionActivity.this, "Re-computed. Time: " + seconds + "s", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DetectionActivity.this, "Re-computed. time: " + seconds + "s", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -62,7 +63,8 @@ public class DetectionActivity extends Activity {
     void updateData() {
         final TextView mxp = findViewById(R.id.mxp);
         mxp.setText(
-                "isRootInstalled: " + String.valueOf(bp.isRootInstalled()) +
+                "i=" + i++ +
+                "isRootInstalled: " + bp.isRootInstalled() +
                         "\narePirateAppsInstalled: " + bp.arePirateAppsInstalled() +
                         "\n\npirateAppsList: " + bp.getPirateAppsList()
         );

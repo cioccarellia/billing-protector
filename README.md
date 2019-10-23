@@ -17,9 +17,10 @@ Remember that a skilled hacker will always find a way to crack your code. This l
 ### Bulletin
 - At the end of December 2018, Lucky Patcher 8.0.0 was released, along with the possibility to randomize package name and make the app invisible from Google Play Protect and other defense systems.
 The 5th of January, BillingProtector 1.1.0 update introduces support for custom package parameter matching and comes along with the ability of detecting every masked lucky patcher installation
-- Lucky Patcher (12 March 2018) developed an hack which allowed to show its package label normally, [but using instead different charset](https://twitter.com/ACioccarelli/status/1105249064147472385), avoiding normal detction. 
-BillingProtector 1.3.0 detects that version, the Lucky Patcher billing emulation server, the installer and the proxy to bypass app purchase mechanism.
-
+- Lucky Patcher (As of March 2019) developed a technique which allowed to display its package label [using a different charset](https://twitter.com/ACioccarelli/status/1105249064147472385), avoiding normal string-based detction. 
+BillingProtector 1.3.0 detects that version, the Lucky Patcher billing emulation server, the installer and the proxy used to bypass app purchase mechanism.
+- Lucky Patcher (As of September 2019) Started randomizing package names of both installer and compiled application to avoid detection.
+BillingProtector updates some internal detection features to achive a better match, and to detect possible furure versions bypasses before they are developed by actually reverse-engeninering them.
 
 # Setup
 BillingProtector uses [jitpack](https://jitpack.io/#AndreaCioccarelli/BillingProtector) as package repository.
@@ -34,7 +35,7 @@ allprojects {
 And the dependency to your module build.gradle file:
 ```gradle
 dependencies {
-    implementation 'com.github.AndreaCioccarelli:BillingProtector:1.3.2'
+    implementation 'com.github.AndreaCioccarelli:BillingProtector:1.4.0'
 }
 ```
 
