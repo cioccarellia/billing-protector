@@ -1,4 +1,4 @@
-@file:Suppress("unused", "MemberVisibilityCanBePrivate")
+@file:Suppress("unused", "MemberVisibilityCanBePrivate", "NOTHING_TO_INLINE")
 
 package com.andreacioccarelli.billingprotector
 
@@ -16,10 +16,9 @@ import kotlinx.coroutines.withContext
 /**
  * Designed and Developed by Andrea Cioccarelli
  */
-
 class BillingProtector(
     private val context: Context,
-    val simulateSafeEnvironment: Boolean = false
+    private val simulateSafeEnvironment: Boolean = false
 ) {
     /**
      * Lazily-evaluated and statically-generated pirate apps list
@@ -56,7 +55,7 @@ class BillingProtector(
     /**
      * Internal function actually performing the security task
      * */
-    private fun startScan(): List<PirateApp> {
+    private inline fun startScan(): List<PirateApp> {
         val foundThreats = mutableListOf<PirateApp>()
 
         for (installedApp in context.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)) {

@@ -65,8 +65,7 @@ public class DetectionActivity extends Activity {
         mxp.setText(
                 "i=" + i++ +
                 "isRootInstalled: " + bp.isRootInstalled() +
-                        "\narePirateAppsInstalled: " + bp.arePirateAppsInstalled() +
-                        "\n\npirateAppsList: " + bp.getPirateAppsList()
+                "\n\npirateAppsList: " + bp.getPirateAppsList()
         );
     }
 }
