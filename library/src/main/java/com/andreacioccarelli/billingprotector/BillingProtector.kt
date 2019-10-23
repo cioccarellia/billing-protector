@@ -9,6 +9,7 @@ import com.andreacioccarelli.billingprotector.data.PirateApp
 import com.andreacioccarelli.billingprotector.data.SelectionCriteria
 import com.andreacioccarelli.billingprotector.utils.RootUtils
 import com.andreacioccarelli.billingprotector.utils.assembleAppList
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -18,7 +19,8 @@ import kotlinx.coroutines.withContext
  */
 class BillingProtector(
     private val context: Context,
-    private val simulateSafeEnvironment: Boolean = false
+    private val simulateSafeEnvironment: Boolean = false,
+    private val coroutineContext: CoroutineDispatcher = Dispatchers.Default
 ) {
     /**
      * Lazily-evaluated and statically-generated pirate apps list
@@ -49,7 +51,7 @@ class BillingProtector(
      * */
     suspend fun getPirateAppsListAsync(): List<PirateApp> {
         if (simulateSafeEnvironment) return emptyList()
-        return withContext(CoroutineScope(Dispatchers.Default).coroutineContext) { startScan() }
+        return withContext(coroutineContext) { startScan() }
     }
 
     /**
