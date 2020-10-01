@@ -14,11 +14,11 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            app:title="Kt activity"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="Kt activity" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -28,11 +28,11 @@
         tools:context=".DetectionActivity">
 
         <TextView
-            android:padding="30dp"
-            android:layout_centerInParent="true"
             android:id="@+id/mxp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="30dp" />
 
     </RelativeLayout>
 

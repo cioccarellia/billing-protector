@@ -1,20 +1,18 @@
 package com.andreacioccarelli.billingprotectorsample
 
 import android.annotation.SuppressLint
-import android.os.Bundle
 import android.app.Activity
 import android.content.Context
+import android.os.Bundle
 import android.os.Vibrator
 import android.support.design.widget.FloatingActionButton
 import android.widget.TextView
 import android.widget.Toast
-
-import com.andreacioccarelli.billingprotector.*
+import com.andreacioccarelli.billingprotector.BillingProtector
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
-import kotlin.coroutines.CoroutineContext
 import kotlin.system.measureTimeMillis
 
 class DetectionActivity : Activity() {
@@ -39,7 +37,7 @@ class DetectionActivity : Activity() {
     }
 
     private fun runRefresh() = CoroutineScope(Dispatchers.Main).launch {
-        val millis = measureTimeMillis {  updateData() }
+        val millis = measureTimeMillis { updateData() }
         val seconds = TimeUnit.MILLISECONDS.toSeconds(millis)
 
         runOnUiThread {
@@ -48,6 +46,7 @@ class DetectionActivity : Activity() {
     }
 
     private var i = 0
+
     @SuppressLint("SetTextI18n")
     private suspend fun updateData() {
         val mxp = findViewById<TextView>(R.id.mxp)

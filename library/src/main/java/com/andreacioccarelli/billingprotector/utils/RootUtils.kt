@@ -1,9 +1,7 @@
 package com.andreacioccarelli.billingprotector.utils
 
 import java.io.BufferedReader
-import java.io.IOException
 import java.io.InputStreamReader
-import java.lang.RuntimeException
 
 /**
  * Created by andrea on 2018/Jul.

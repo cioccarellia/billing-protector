@@ -10,7 +10,6 @@ import com.andreacioccarelli.billingprotector.data.SelectionCriteria
 import com.andreacioccarelli.billingprotector.utils.RootUtils
 import com.andreacioccarelli.billingprotector.utils.assembleAppList
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -18,9 +17,9 @@ import kotlinx.coroutines.withContext
  * Designed and Developed by Andrea Cioccarelli
  */
 class BillingProtector(
-    private val context: Context,
-    private val simulateSafeEnvironment: Boolean = false,
-    private val coroutineContext: CoroutineDispatcher = Dispatchers.Default
+        private val context: Context,
+        private val simulateSafeEnvironment: Boolean = false,
+        private val coroutineContext: CoroutineDispatcher = Dispatchers.Default
 ) {
     /**
      * Lazily-evaluated and statically-generated pirate apps list

@@ -29,5 +29,4 @@ fun MutableList<PirateApp>.containsPackage(pk: String): Boolean {
     return false
 }
 
-fun MutableList<PirateApp>.add(field: String, hash: String, selectionCriteria: SelectionCriteria, name: String)
-        = add(PirateApp(field, hash, selectionCriteria, name))
+fun MutableList<PirateApp>.add(field: String, hash: String, selectionCriteria: SelectionCriteria, name: String) = add(PirateApp(field, hash, selectionCriteria, name))
