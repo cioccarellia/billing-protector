@@ -1,10 +1,10 @@
 # BillingProtector
-[![Latest Release](https://jitpack.io/v/AndreaCioccarelli/BillingProtector.svg)](https://jitpack.io/#AndreaCioccarelli/BillingProtector)
+[![Latest Release](https://jitpack.io/v/cioccarellia/billingprotector.svg)](https://jitpack.io/#cioccarellia/billingprotector)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a5bcdb5592d042f1825457fb9fafb778)](https://www.codacy.com/app/cioccarelliandrea01/BillingProtector)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-BillingProtector-green.svg?style=flat)](https://android-arsenal.com/details/1/7289)
-[![Language](https://img.shields.io/badge/language-kotlin-orange.svg)](https://github.com/AndreaCioccarelli/BillingProtector/blob/master/library/build.gradle)
-[![Min sdk](https://img.shields.io/badge/minsdk-14-yellow.svg)](https://github.com/AndreaCioccarelli/BillingProtector/blob/master/library/build.gradle)
-[![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/AndreaCioccarelli/BillingProtector/blob/master/LICENSE)
+[![Language](https://img.shields.io/badge/language-kotlin-orange.svg)](https://github.com/cioccarellia/billingprotector/blob/master/library/build.gradle)
+[![Min sdk](https://img.shields.io/badge/minsdk-14-yellow.svg)](https://github.com/cioccarellia/billingprotector/blob/master/library/build.gradle)
+[![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/cioccarellia/billingprotector/blob/master/LICENSE)
 
 BillingProtector is a tiny and robust library for Android, entirely written in Kotlin. Its main purpose is to check the android device state & to provide a way to execute purchases just when it is safe. 
 Plus, it allows you to block a transition process if the application has been hacked or patched, if the device environment is corrupted or if any other suspicious conditions are detected; it can also be used to prevent your apps from being executed on an unprotected/insecure operative system, like Snapchat does with rooted devices.
