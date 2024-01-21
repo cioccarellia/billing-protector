@@ -6,6 +6,10 @@
 [![Min sdk](https://img.shields.io/badge/minsdk-14-yellow.svg)](https://github.com/cioccarellia/billingprotector/blob/master/library/build.gradle)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/cioccarellia/billingprotector/blob/master/LICENSE)
 
+
+## ⚠️ Warning: BillingProtector has been deprecated in favor of [kevlar](https://github.com/kevlar-kt/kevlar)
+
+
 BillingProtector is a tiny and robust library for Android, entirely written in Kotlin. Its main purpose is to check the android device state & to provide a way to execute purchases just when it is safe. 
 Plus, it allows you to block a transition process if the application has been hacked or patched, if the device environment is corrupted or if any other suspicious conditions are detected; it can also be used to prevent your apps from being executed on an unprotected/insecure operative system, like Snapchat does with rooted devices.
 
